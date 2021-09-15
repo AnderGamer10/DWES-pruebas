@@ -80,6 +80,9 @@ Console.WriteLine("Hello World!");
 
 //5------------------------------------------------------------------------
 
+
+
+//hola que tal
 var a = 0;
 var notas = new[] { 7.1M, 4, 6, 5, 4, 6.5M, 7};
 var cantidadApro = 0M;

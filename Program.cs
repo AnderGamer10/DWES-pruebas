@@ -78,7 +78,7 @@
 // Console.WriteLine($"{Calcular(notas):0.00} %");
 
 
-//5.1------------------------------------------------------------------------
+// 5.1------------------------------------------------------------------------
 
 
 
@@ -100,7 +100,7 @@
 
 
 
-//5.2------------------------------------------------------------------------
+// 5.2------------------------------------------------------------------------
 
 // class Program
 // {
@@ -132,7 +132,7 @@
 //     }
 // }
 
-//5.3------------------------------------------------------------------------
+// 5.3------------------------------------------------------------------------
 // class Program
 // {
 //     public record Person(string nombre, char sexo, decimal nota);
@@ -155,7 +155,7 @@
 //         Console.WriteLine(media / notas.Length);
 //     }
 // }
-//5.4------------------------------------------------------------------------
+// 5.4------------------------------------------------------------------------
 
 // class Program
 // {
@@ -231,7 +231,7 @@
 //     }
 // }
 
-//5.5------------------------------------------------------------------------
+// 5.5------------------------------------------------------------------------
 // using System.Collections.Generic;
 
 // var dLuis = new Dictionary<string, object>();
@@ -278,82 +278,105 @@
 // Console.WriteLine(media / notas.Length);
 
 
-//-------------------------------------------------------------
+//6-------------------------------------------------------------
+
+// namespace Actividad6
+// {
+//     class Program
+//     {
+//         static void Main(string[] args)
+//         {
+//             Sistema system = new Sistema();
+
+//             Alumno A1 = new Alumno("Luis", 'H', 7.5M);
+//             Alumno A2 = new Alumno("Marta", 'M', 4M);
+//             Alumno A3 = new Alumno("Marcos", 'H', 6M);
+//             Alumno A4 = new Alumno("Aroa", 'M', 5M);
+//             Alumno A5 = new Alumno("Nerea", 'M', 4M);
+//             Alumno A6 = new Alumno("Kike", 'H', 6.5M);
+//             Alumno A7 = new Alumno("Juan", 'H', 7.5M);
+
+//             Alumno[] notas = { A1, A2, A3, A4, A5, A6, A7 };
 
 
+//             Console.WriteLine($"{(system.calcularMedia(notas)):0.00} ");
+//             Console.WriteLine($"{(system.calcularAprobados(notas)):0.00} " + "%");
+//         }
+//     }
+// }
 
-namespace Actividad6
+// class Sistema
+// {
+
+//     public decimal calcularMedia(Alumno[] lista)
+//     {
+
+//         decimal resultado = 0M;
+
+//         for (int i = 0; i < lista.Length; i++)
+//             resultado += lista[i].nota;
+
+//         return resultado / lista.Length;
+//     }
+
+//     public decimal calcularAprobados(Alumno[] lista)
+//     {
+
+//         decimal resultado = 0M;
+//         int cantidadAprobados = 0;
+
+//         for (int i = 0; i < lista.Length; i++)
+//             if (lista[i].nota >= 5)
+//                 cantidadAprobados++;
+
+//         resultado = (cantidadAprobados * 100) / lista.Length;
+//         return resultado;
+//     }
+
+
+// }
+
+// class Alumno
+// {
+//     String nombre;
+//     char sexo;
+//     public decimal nota;
+//     public Alumno(String _nombre, char _sexo, decimal _nota)
+//     {
+
+//         nombre = _nombre;
+//         sexo = _sexo;
+//         nota = _nota;
+
+//     }
+// }
+
+//7-------------------------------------------------------------
+
+using System.Collections.Generic;
+using System.Linq;
+
+public class Hello
 {
-    class Program
+    public static void Main()
     {
-        static void Main(string[] args)
-        {
-            Sistema system = new Sistema();
+        // Your code here!
 
-            Alumno A1 = new Alumno("Luis", 'H', 7.5M);
-            Alumno A2 = new Alumno("Marta", 'M', 4M);
-            Alumno A3 = new Alumno("Marcos", 'H', 6M);
-            Alumno A4 = new Alumno("Aroa", 'M', 5M);
-            Alumno A5 = new Alumno("Nerea", 'M', 4M);
-            Alumno A6 = new Alumno("Kike", 'H', 6.5M);
-            Alumno A7 = new Alumno("Juan", 'H', 7.5M);
-
-            Alumno[] notas = { A1, A2, A3, A4, A5, A6, A7 };
+        System.Console.WriteLine("Hola");
 
 
-            Console.WriteLine($"{(system.calcularMedia(notas)):0.00} ");
-            Console.WriteLine($"{(system.calcularAprobados(notas)):0.00} " + "%");
-        }
+        Func<string, int> longitud = n => n.Length;
+        Func<int, bool> impar = n => n % 2 != 0;
+
+        var myArray = new List<String>() { "Neo", "Amstrong", "Cyclone", "Jet", "Amstrong", "Cannon", "patata", "lentejas", "profesionales", "del", "terror" };
+        var mapArray = myArray.Select(longitud);
+        var filterArray = mapArray.Where(impar);
+        var suma = filterArray.Aggregate(0, (suma, patata) => suma + patata);
+        Console.WriteLine("La suma de todos los impares es " + suma);
+
     }
 }
 
-class Sistema
-{
-
-    public decimal calcularMedia(Alumno[] lista)
-    {
-
-        decimal resultado = 0M;
-
-        for (int i = 0; i < lista.Length; i++)
-            resultado += lista[i].nota;
-
-        return resultado / lista.Length;
-    }
-
-    public decimal calcularAprobados(Alumno[] lista)
-    {
-
-        decimal resultado = 0M;
-        int cantidadAprobados = 0;
-
-        for (int i = 0; i < lista.Length; i++)
-            if (lista[i].nota >= 5)
-                cantidadAprobados++;
-                
-        resultado = (cantidadAprobados * 100) / lista.Length;
-        return resultado;
-    }
 
 
-}
-
-class Alumno
-{
-    String nombre;
-    char sexo;
-    public decimal nota;
-    public Alumno(String _nombre, char _sexo, decimal _nota)
-    {
-
-        nombre = _nombre;
-        sexo = _sexo;
-        nota = _nota;
-
-    }
-
-
-
-
-}
 

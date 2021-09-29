@@ -405,8 +405,158 @@
 
 //8-------------------------------------------------------------
 
-using System.Linq;
+// using System.Linq;
 
+
+// Calificacion[] notas = new[] {
+//         //Luis, Marta, Marcos, Aroa, Nerea, Kike, Juan
+//         //7.5M, 4,     6,      5,    4,     6.5M, 7.5M 
+//         new Calificacion("Luis", 7.5M),
+//         new Calificacion("Marta", 4),
+//         new Calificacion("Marcos", 6),
+//         new Calificacion("Aroa", 5),
+//         new Calificacion("Nerea", 4),
+//         new Calificacion("Kike", 6.5M),
+//         new Calificacion("Juan", 7.5M)
+//     };
+
+// var sistema = new Sistema(notas);
+// var vista = new Vista();
+// var controlador = new Controlador(sistema, vista);
+// controlador.Run();
+// Console.WriteLine("Fin");
+
+// public class Vista
+// {
+
+//     public int obtenerNum(string prompt)
+//     {
+//         int entero = int.MinValue;
+//         string input = "";
+//         bool entradaIncorrecta = true;
+//         while (entradaIncorrecta)
+//         {
+//             try
+//             {
+//                 Console.Write($"   {prompt.Trim()}: ");
+//                 input = Console.ReadLine();
+//                 if (input != "fin")
+//                 {
+//                     entero = int.Parse(input);
+//                     entradaIncorrecta = false;
+//                 }
+//                 else
+//                 {
+//                     entero = int.MinValue;
+//                     entradaIncorrecta = false;
+//                 }
+//             }
+//             catch (FormatException)
+//             {
+//                 ;
+//             }
+//         }
+//         return entero;
+//     }
+//     public int ObcionElegida(string titulo, Object[] opciones, string prompt)
+//     {
+//         Console.WriteLine($"   === {titulo} ===");
+//         Console.WriteLine();
+//         for (int i = 0; i < opciones.Length; i++)
+//         {
+//             Console.WriteLine($"   {i + 1:##}.- {opciones[i]}");
+//         }
+//         Console.WriteLine();
+//         return obtenerNum(prompt);
+//     }
+// }
+
+// public class Controlador
+// {
+//     string[] menu = new[]{
+//        "Obtener la media de las notas",
+//        "Obtener la mejor nota"
+//        };
+
+//     private Sistema sistema;
+//     private Vista vista;
+
+//     public Controlador(Sistema sistema, Vista vista)
+//     {
+//         this.sistema = sistema;
+//         this.vista = vista;
+//     }
+
+//     public void Run()
+//     {
+//         while (true)
+//         {
+//             Console.Clear();
+//             var opcion = vista.ObcionElegida("Menu de Opciones", menu, "Seleciona una opción");
+//             switch (opcion)
+//             {
+//                 case 1:
+//                     obtenerLaMedia();
+//                     break;
+//                 case 2:
+//                     Console.WriteLine($"No implementado");
+//                     break;
+//                 case int.MinValue:
+//                     // Salimos 
+//                     return;
+//             }
+//             Console.WriteLine("\n\nPulsa Return para continuar");
+//             Console.ReadLine();
+//         }
+//     }
+
+//     public void obtenerLaMedia()
+//     {
+//         Console.WriteLine($"La media de la notas es: {sistema.CalcularMedia():0.00}");
+//     }
+
+
+// }
+
+// public class Calificacion
+// {
+//     public string Nombre;
+//     public decimal Nota;
+//     public Calificacion(string nombre, decimal nota)
+//     {
+//         Nombre = nombre;
+//         Nota = nota;
+//     }
+//     public override string ToString() => $"({Nombre}, {Nota})";
+// }
+
+// public class Sistema
+// {
+//     Calificacion[] Notas;
+
+//     public Sistema(Calificacion[] notas)
+//     {
+//         Notas = notas;
+//     }
+
+//     private decimal CalculoDeLaSuma(decimal[] datos) => datos.Sum();
+//     public decimal CalcularMedia()
+//     {
+//         var notas = Notas.Select(calificacion => calificacion.Nota).ToArray();
+//         return CalculoDeLaSuma(notas) / Notas.Length;
+//     }
+// }
+
+
+
+
+
+
+
+//9-------------------------------------------------------------
+
+
+using System.Linq;
 
 Calificacion[] notas = new[] {
         //Luis, Marta, Marcos, Aroa, Nerea, Kike, Juan
@@ -419,131 +569,82 @@ Calificacion[] notas = new[] {
         new Calificacion("Kike", 6.5M),
         new Calificacion("Juan", 7.5M)
     };
-
 var sistema = new Sistema(notas);
-var vista = new Vista();
-var controlador = new Controlador(sistema, vista);
-controlador.Run();
-Console.WriteLine("Fin");
+Controlador cont = new Controlador();
+cont.Run();
+
 
 public class Vista
 {
-
-    public int obtenerNum(string prompt)
-    {
-        int entero = int.MinValue;
-        string input = "";
-        bool entradaIncorrecta = true;
-        while (entradaIncorrecta)
-        {
-            try
-            {
-                Console.Write($"   {prompt.Trim()}: ");
-                input = Console.ReadLine();
-                if (input != "fin")
-                {
-                    entero = int.Parse(input);
-                    entradaIncorrecta = false;
-                }
-                else
-                {
-                    entero = int.MinValue;
-                    entradaIncorrecta = false;
-                }
-            }
-            catch (FormatException)
-            {
-                ;
-            }
-        }
-        return entero;
+    Controlador cont = new Controlador();
+    Sistema sis = new Sistema();
+    public int obtenerEntero(string num){
+        var op = 0;
+        op = Convert.ToInt32(num);
+        return obtenerOpcion(op);
     }
-    public int ObcionElegida(string titulo, Object[] opciones, string prompt)
-    {
-        Console.WriteLine($"   === {titulo} ===");
-        Console.WriteLine();
-        for (int i = 0; i < opciones.Length; i++)
-        {
-            Console.WriteLine($"   {i + 1:##}.- {opciones[i]}");
+    public int obtenerOpcion(int num){
+        var op = 0;
+        switch(num){
+            case 1: 
+                Console.WriteLine("Uno");
+                op = 1;
+                break;
+            case 2:
+                Console.WriteLine("Dos");
+                op = 2;
+                break;
+            default:
+                Console.WriteLine("Elige una opcion Valida");
+                cont.Run();
+                op = 0;
+                break;
         }
-        Console.WriteLine();
-        return obtenerNum(prompt);
+        return sis.obtenerMedia(Convert.ToDecimal(op));
     }
 }
 
 public class Controlador
 {
     string[] menu = new[]{
-       "Obtener la media de las notas",
-       "Obtener la mejor nota"
+       "1.- Obtener la media de las notas",
+       "2.- Obtener la mejor nota"
        };
-
-    private Sistema sistema;
-    private Vista vista;
-
-    public Controlador(Sistema sistema, Vista vista)
-    {
-        this.sistema = sistema;
-        this.vista = vista;
-    }
-
     public void Run()
     {
-        while (true)
+        for (int i = 0; i < menu.Length; i++)
         {
-            Console.Clear();
-            var opcion = vista.ObcionElegida("Menu de Opciones", menu, "Seleciona una opción");
-            switch (opcion)
-            {
-                case 1:
-                    obtenerLaMedia();
-                    break;
-                case 2:
-                    Console.WriteLine($"No implementado");
-                    break;
-                case int.MinValue:
-                    // Salimos 
-                    return;
-            }
-            Console.WriteLine("\n\nPulsa Return para continuar");
-            Console.ReadLine();
+            Console.WriteLine(menu[i]);
         }
+        Vista vis = new Vista();
+        vis.obtenerEntero(Console.ReadLine());
     }
-
-    public void obtenerLaMedia()
-    {
-        Console.WriteLine($"La media de la notas es: {sistema.CalcularMedia():0.00}");
-    }
-
-
-}
-
-public class Calificacion
-{
-    public string Nombre;
-    public decimal Nota;
-    public Calificacion(string nombre, decimal nota)
-    {
-        Nombre = nombre;
-        Nota = nota;
-    }
-    public override string ToString() => $"({Nombre}, {Nota})";
+    // public decimal obtenerMedia()
+    // {
+        
+    // }
 }
 
 public class Sistema
 {
     Calificacion[] Notas;
-
-    public Sistema(Calificacion[] notas)
-    {
+    public Sistema(Calificacion[] notas){
         Notas = notas;
     }
+    public decimal obtenerMedia(decimal num){
+        
+    }
+}
 
-    private decimal CalculoDeLaSuma(decimal[] datos) => datos.Sum();
-    public decimal CalcularMedia()
+
+public class Calificacion
+{
+    private String nombre;
+    private decimal nota;
+    public Calificacion(String Nombre, decimal Nota)
     {
-        var notas = Notas.Select(calificacion => calificacion.Nota).ToArray();
-        return CalculoDeLaSuma(notas) / Notas.Length;
+        nota = Nota;
+        nombre = Nombre;
     }
 }
 
@@ -553,7 +654,6 @@ public class Sistema
 
 
 
-//9-------------------------------------------------------------
 
 
 

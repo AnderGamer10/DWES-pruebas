@@ -577,7 +577,6 @@ cont.Run();
 public class Vista
 {
     Controlador cont = new Controlador();
-    Sistema sis = new Sistema();
     public int obtenerEntero(string num){
         var op = 0;
         op = Convert.ToInt32(num);
@@ -600,7 +599,7 @@ public class Vista
                 op = 0;
                 break;
         }
-        return sis.obtenerMedia(Convert.ToDecimal(op));
+        return op;
     }
 }
 
@@ -631,9 +630,9 @@ public class Sistema
     public Sistema(Calificacion[] notas){
         Notas = notas;
     }
-    public decimal obtenerMedia(decimal num){
+    // public decimal obtenerMedia(){
         
-    }
+    // }
 }
 
 

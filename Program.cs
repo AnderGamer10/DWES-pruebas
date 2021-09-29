@@ -407,7 +407,6 @@
 
 using System.Linq;
 
-Console.WriteLine("Empezamos");
 
 Calificacion[] notas = new[] {
         //Luis, Marta, Marcos, Aroa, Nerea, Kike, Juan
@@ -430,7 +429,7 @@ Console.WriteLine("Fin");
 public class Vista
 {
 
-    public int obtenerEntero(string prompt)
+    public int obtenerNum(string prompt)
     {
         int entero = int.MinValue;
         string input = "";
@@ -459,7 +458,7 @@ public class Vista
         }
         return entero;
     }
-    public int obtenerOpcion(string titulo, Object[] opciones, string prompt)
+    public int ObcionElegida(string titulo, Object[] opciones, string prompt)
     {
         Console.WriteLine($"   === {titulo} ===");
         Console.WriteLine();
@@ -468,7 +467,7 @@ public class Vista
             Console.WriteLine($"   {i + 1:##}.- {opciones[i]}");
         }
         Console.WriteLine();
-        return obtenerEntero(prompt);
+        return obtenerNum(prompt);
     }
 }
 
@@ -493,7 +492,7 @@ public class Controlador
         while (true)
         {
             Console.Clear();
-            var opcion = vista.obtenerOpcion("Menu de Opciones", menu, "Seleciona una opción");
+            var opcion = vista.ObcionElegida("Menu de Opciones", menu, "Seleciona una opción");
             switch (opcion)
             {
                 case 1:
@@ -513,7 +512,7 @@ public class Controlador
 
     public void obtenerLaMedia()
     {
-        Console.WriteLine($"La media de la notas es: {sistema.CalculoDeLaMedia():0.00}");
+        Console.WriteLine($"La media de la notas es: {sistema.CalcularMedia():0.00}");
     }
 
 
@@ -541,7 +540,7 @@ public class Sistema
     }
 
     private decimal CalculoDeLaSuma(decimal[] datos) => datos.Sum();
-    public decimal CalculoDeLaMedia()
+    public decimal CalcularMedia()
     {
         var notas = Notas.Select(calificacion => calificacion.Nota).ToArray();
         return CalculoDeLaSuma(notas) / Notas.Length;

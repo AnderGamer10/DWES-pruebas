@@ -548,11 +548,6 @@
 // }
 
 
-
-
-
-
-
 //9-------------------------------------------------------------
 
 
@@ -570,32 +565,35 @@ Calificacion[] notas = new[] {
         new Calificacion("Juan", 7.5M)
     };
 var sistema = new Sistema(notas);
-Controlador cont = new Controlador();
-cont.Run();
+var vista = new Vista();
+var controlador = new Controlador(sistema, vista);
+controlador.Run();
 
 
 public class Vista
 {
-    Controlador cont = new Controlador();
-    public int obtenerEntero(string num){
+    public int obtenerEntero(string num)
+    {
         var op = 0;
         op = Convert.ToInt32(num);
         return obtenerOpcion(op);
     }
-    public int obtenerOpcion(int num){
+    
+    public int obtenerOpcion(int num)
+    {
         var op = 0;
-        switch(num){
-            case 1: 
-                Console.WriteLine("Uno");
+        switch (num)
+        {
+            case 1:
+                Console.WriteLine("Primera opcion elegida");
                 op = 1;
                 break;
             case 2:
-                Console.WriteLine("Dos");
+                Console.WriteLine("Segunda opcion elegida");
                 op = 2;
                 break;
             default:
                 Console.WriteLine("Elige una opcion Valida");
-                cont.Run();
                 op = 0;
                 break;
         }
@@ -605,6 +603,15 @@ public class Vista
 
 public class Controlador
 {
+
+    private Sistema sistema;
+    private Vista vista;
+
+    public Controlador(Sistema sistema, Vista vista)
+    {
+        this.sistema = sistema;
+        this.vista = vista;
+    }
     string[] menu = new[]{
        "1.- Obtener la media de las notas",
        "2.- Obtener la mejor nota"
@@ -616,34 +623,42 @@ public class Controlador
             Console.WriteLine(menu[i]);
         }
         Vista vis = new Vista();
-        vis.obtenerEntero(Console.ReadLine());
+        if(vis.obtenerEntero(Console.ReadLine()) == 1){
+            obtenerMedia();
+        }else if(vis.obtenerEntero(Console.ReadLine()) == 2){
+            
+        }
     }
-    // public decimal obtenerMedia()
-    // {
-        
-    // }
+    public void obtenerMedia()
+    {
+        Console.WriteLine($"La media de la notas es: {sistema.CalcularMedia():0.00}");
+    }
 }
 
 public class Sistema
 {
     Calificacion[] Notas;
-    public Sistema(Calificacion[] notas){
+    public Sistema(Calificacion[] notas)
+    {
         Notas = notas;
     }
-    // public decimal obtenerMedia(){
-        
-    // }
+    private decimal CalculoDeLaSuma(decimal[] datos) => datos.Sum();
+    public decimal CalcularMedia()
+    {
+        var notas = Notas.Select(Calificacion => Calificacion.Nota).ToArray();
+        return CalculoDeLaSuma(notas) / Notas.Length;
+    }
 }
 
 
 public class Calificacion
 {
-    private String nombre;
-    private decimal nota;
-    public Calificacion(String Nombre, decimal Nota)
+    private String Nombre;
+    public decimal Nota;
+    public Calificacion(String nombre, decimal nota)
     {
-        nota = Nota;
-        nombre = Nombre;
+        Nota = nota;
+        Nombre = nombre;
     }
 }
 

@@ -578,7 +578,7 @@ public class Vista
         op = Convert.ToInt32(num);
         return obtenerOpcion(op);
     }
-    
+
     public int obtenerOpcion(int num)
     {
         var op = 0;
@@ -613,21 +613,40 @@ public class Controlador
         this.vista = vista;
     }
     string[] menu = new[]{
-       "1.- Obtener la media de las notas",
-       "2.- Obtener la mejor nota"
+       "Obtener la media de las notas",
+       "Obtener la mejor nota"
        };
     public void Run()
     {
+        denuevo:
+        var cont = 1;
         for (int i = 0; i < menu.Length; i++)
         {
-            Console.WriteLine(menu[i]);
+            Console.WriteLine(cont + ".- " + menu[i]);
+            cont++;
+
         }
         Vista vis = new Vista();
-        if(vis.obtenerEntero(Console.ReadLine()) == 1){
-            obtenerMedia();
-        }else if(vis.obtenerEntero(Console.ReadLine()) == 2){
-            
+        try
+        {
+            if (vis.obtenerEntero(Console.ReadLine()) == 1)
+            {
+                obtenerMedia();
+            }
+            else if (vis.obtenerEntero(Console.ReadLine()) == 2)
+            {
+                obtenerMejorNota();
+            }
         }
+        catch (FormatException e)
+        {
+            Console.WriteLine("No has elegido un numero");
+            goto denuevo;
+        }
+    }
+    public void obtenerMejorNota(){
+        Console.WriteLine($"La media de la notas es: {sistema.MejorNota():0.00}");
+    
     }
     public void obtenerMedia()
     {
@@ -641,6 +660,11 @@ public class Sistema
     public Sistema(Calificacion[] notas)
     {
         Notas = notas;
+    }
+    private decimal CalculoMejorNota(decimal[] datos) => datos.Max();
+    public decimal MejorNota(){
+        var notas = Notas.Select(Calificacion => Calificacion.Nota).ToArray();
+        return CalculoMejorNota(notas) / Notas.Length;
     }
     private decimal CalculoDeLaSuma(decimal[] datos) => datos.Sum();
     public decimal CalcularMedia()
